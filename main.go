@@ -14,25 +14,28 @@ type Page struct {
 }
 
 func main() {
-	fileServer := http.StripPrefix("/templates/index.html", http.FileServer(http.Dir("./templates")))
-	http.Handle("/templates", fileServer)
-	http.HandleFunc("/", AsciiHandler)
+	// fileServer := http.StripPrefix("/templates/", http.FileServer(http.Dir("./templates")))
+	// http.Handle("/templates", fileServer)
+	//	http.HandleFunc("/", AsciiHandler)
+
+	http.Handle("/", http.FileServer(http.Dir("./templates")))
+	http.HandleFunc("/ascii-art", AsciiHandler)
 	http.ListenAndServe(":3000", nil)
 }
 
 //handes /ascii-art request
 func AsciiHandler(w http.ResponseWriter, r *http.Request) {
 
-	if r.URL.Path != "/ascii-art" && r.URL.Path != "/"{
-        http.Error(w, "404 page not found.", http.StatusNotFound)
-        return
-    }
-	
+	// if r.URL.Path != "/ascii-art" && r.URL.Path != "/" {
+	// 	http.Error(w, "404 page not found.", http.StatusNotFound)
+	// 	return
+	// }
+
 	t := template.Must(template.ParseFiles("templates/index.html"))
 
-	if r.Method == "GET" {
+	/*if r.Method == "GET" {
 		t.Execute(w, nil)
-	} else if r.Method == "POST" {
+	} else*/if r.Method == "POST" {
 
 		banner := r.FormValue("banner")
 		text := r.FormValue("text")
@@ -120,7 +123,7 @@ func AsciiWordToString(lines []int, charFile []string) string {
 		for j := 0; j < len(lines); j++ {
 			line += charFile[lines[j]+i]
 		}
-		result +=  line + "\n"
+		result += line + "\n"
 	}
 	return result
 
