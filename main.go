@@ -15,12 +15,14 @@ type Page struct {
 
 func main() {
 	fileServer := http.StripPrefix("/templates", http.FileServer(http.Dir("./templates")))
+
+
 	http.Handle("/templates", fileServer)
 	http.HandleFunc("/", AsciiHandler)
 	http.ListenAndServe(":3000", nil)
 }
 
-//handes /ascii-art request
+//handes "/" request
 func AsciiHandler(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(template.ParseFiles("templates/index.html"))
 
