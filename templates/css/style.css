@@ -99,3 +99,8 @@ textarea::-webkit-scrollbar {
 
 textarea::-webkit-scrollbar-thumb {
 background-color: black; }
+
+
+::-webkit-scrollbar-corner {
+	background:transparent;
+  }

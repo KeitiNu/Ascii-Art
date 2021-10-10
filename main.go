@@ -14,16 +14,20 @@ type Page struct {
 }
 
 func main() {
-	fileServer := http.StripPrefix("/templates", http.FileServer(http.Dir("./templates")))
-
-
+	fileServer := http.StripPrefix("/templates/index.html", http.FileServer(http.Dir("./templates")))
 	http.Handle("/templates", fileServer)
 	http.HandleFunc("/", AsciiHandler)
 	http.ListenAndServe(":3000", nil)
 }
 
-//handes "/" request
+//handes /ascii-art request
 func AsciiHandler(w http.ResponseWriter, r *http.Request) {
+
+	if r.URL.Path != "/ascii-art" && r.URL.Path != "/"{
+        http.Error(w, "404 page not found.", http.StatusNotFound)
+        return
+    }
+	
 	t := template.Must(template.ParseFiles("templates/index.html"))
 
 	if r.Method == "GET" {
@@ -69,7 +73,7 @@ func Ascii(text string, banner string) (string, error) {
 	err = nil
 
 	bannerTxt := banner + ".txt"
-	var resultSlice [][]string
+
 	var result string
 
 	bannerFile, err1 := os.ReadFile(bannerTxt)
@@ -81,23 +85,12 @@ func Ascii(text string, banner string) (string, error) {
 		return result, err
 	}
 
-	//HAVE TO SORT THIS OUT AND PULL IT TOGETHER
 	for _, v := range textSlice {
 		lineStart := LineStartArray(v)
 		if len(v) == 0 {
-			resultSlice = append(resultSlice, []string{})
+			result += "\n"
 		} else {
-			resultSlice = append(resultSlice, PrintAscii(lineStart, bannerFileSlice))
-		}
-	}
-
-	for _, word := range resultSlice {
-		for _, line := range word {
-			result += line
-			result += "\n"
-		}
-		if len(word) == 0 {
-			result += "\n"
+			result += AsciiWordToString(lineStart, bannerFileSlice)
 		}
 	}
 
@@ -119,16 +112,15 @@ func LineStartArray(s string) []int {
 }
 
 //Prints out required characters
-func PrintAscii(lines []int, charFile []string) []string {
+func AsciiWordToString(lines []int, charFile []string) string {
 
-	var result []string
+	var result string
 	for i := 1; i <= 8; i++ {
 		var line string
 		for j := 0; j < len(lines); j++ {
 			line += charFile[lines[j]+i]
 		}
-		result = append(result, line)
-
+		result +=  line + "\n"
 	}
 	return result
 

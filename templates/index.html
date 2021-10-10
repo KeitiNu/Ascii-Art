@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <title>Ascii Art Web Stylize</title>
 </head>
 
@@ -21,13 +21,13 @@
             <label for="thinkertoy"><input type="radio" id="thinkertoy" name="banner" value="thinkertoy" required>
                 Thinkertoy</label><br><br>
             <textarea name="text" id="text" cols="50" rows="4" placeholder="Type your text here"
-                required>{{.Input}}</textarea><br><br>
+                required wrap="off">{{.Input}}</textarea><br><br>
             <button type="submit" name="submit">Submit</button>
         </form><br>
 
     </div>
 
-    <pre><textarea cols="120" rows="8"  wrap="off" readonly placeholder={{.Text}}></textarea>
+    <pre><textarea cols="120" rows="7"  wrap="off" readonly placeholder={{.Text}}></textarea>
     </pre>
 </body>
 
