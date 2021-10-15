@@ -14,12 +14,13 @@ type Page struct {
 }
 
 func main() {
-	// fileServer := http.StripPrefix("/templates/", http.FileServer(http.Dir("./templates")))
-	// http.Handle("/templates", fileServer)
-	//	http.HandleFunc("/", AsciiHandler)
+	fileServer := http.StripPrefix("/templates/", http.FileServer(http.Dir("./templates")))
+	http.Handle("/templates", fileServer)
+	http.HandleFunc("/", AsciiHandler)
+	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./css/"))))
 
-	http.Handle("/", http.FileServer(http.Dir("./templates")))
-	http.HandleFunc("/ascii-art", AsciiHandler)
+	// http.Handle("/", http.FileServer(http.Dir("./templates")))
+	// http.HandleFunc("/ascii-art", AsciiHandler)
 	http.ListenAndServe(":3000", nil)
 }
 
@@ -33,9 +34,9 @@ func AsciiHandler(w http.ResponseWriter, r *http.Request) {
 
 	t := template.Must(template.ParseFiles("templates/index.html"))
 
-	/*if r.Method == "GET" {
+	if r.Method == "GET" {
 		t.Execute(w, nil)
-	} else*/if r.Method == "POST" {
+	} else if r.Method == "POST" {
 
 		banner := r.FormValue("banner")
 		text := r.FormValue("text")

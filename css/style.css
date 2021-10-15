@@ -8,6 +8,7 @@ body {
 
 }
 
+
 span {
 	text-transform: uppercase;
 	letter-spacing: .25em;
@@ -50,17 +51,7 @@ form {
   
 }
 
-::placeholder { 
-	color:  black;
- }
 
-textarea {
-	background: transparent;
-	resize: none;
-	border:solid 2px black;
-	outline: none;
-	padding: 2%;
-}
 
 input {
 	opacity: 50%; 
@@ -91,6 +82,20 @@ button {
 
 
 
+textarea {
+	background: transparent;
+	resize: none;
+	border:solid 2px black;
+	outline: none;
+	padding: 2%;
+}
+
+textarea::placeholder { 
+	color:  black;
+ }
+
+
+
 textarea::-webkit-scrollbar {
   width: 12px;
   background-color:transparent; }
@@ -99,6 +104,10 @@ textarea::-webkit-scrollbar {
 
 textarea::-webkit-scrollbar-thumb {
 background-color: black; }
+
+.output::placeholder{
+	font-weight: 1000;
+}
 
 
 ::-webkit-scrollbar-corner {
