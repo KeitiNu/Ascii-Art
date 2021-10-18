@@ -18,19 +18,16 @@ func main() {
 	http.Handle("/templates", fileServer)
 	http.HandleFunc("/", AsciiHandler)
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./css/"))))
-
-	// http.Handle("/", http.FileServer(http.Dir("./templates")))
-	// http.HandleFunc("/ascii-art", AsciiHandler)
 	http.ListenAndServe(":3000", nil)
 }
 
 //handes /ascii-art request
 func AsciiHandler(w http.ResponseWriter, r *http.Request) {
 
-	// if r.URL.Path != "/ascii-art" && r.URL.Path != "/" {
-	// 	http.Error(w, "404 page not found.", http.StatusNotFound)
-	// 	return
-	// }
+	if r.URL.Path != "/ascii-art" && r.URL.Path != "/" {
+		http.Error(w, "404 page not found.", http.StatusNotFound)
+		return
+	}
 
 	t := template.Must(template.ParseFiles("templates/index.html"))
 
