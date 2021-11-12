@@ -3,8 +3,8 @@
 ## <b>Description</b>
 Browser based Ascii-art generator with simple web design
 ## <b>Authors</b>
-* KeitiN <br>
-* ButterFingers <br>
+* Keiti Nurmbek <br>
+* Laura-Eliise Marrandi <br>
 ## <b>Usage: how to run</b>
 * Run the program with the command: <br>
 `go run main.go`
